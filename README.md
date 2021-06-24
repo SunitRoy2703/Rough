@@ -83,6 +83,12 @@ cd lite/examples/bert_qa/android   # Folder for Android app.
 adb install app/build/outputs/apk/debug/app-debug.apk
 ```
 
+## Assets folder
+
+_Do not delete the assets folder content_. If you explicitly deleted the files,
+choose `Build -> Rebuild` to re-download the deleted model files into the assets
+folder.
+
 [BERT]: https://github.com/google-research/bert "Bert"
 [SQuAD]: https://rajpurkar.github.io/SQuAD-explorer/ "SQuAD"
 [MobileBERT]:https://tfhub.dev/tensorflow/tfjs-model/mobilebert/1 "MobileBERT"
