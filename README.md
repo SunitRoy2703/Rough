@@ -10,7 +10,8 @@ TensorFlow 2.0, and tested on [SQuAD] dataset version 1.1. The demo app provides
 48 passages from the dataset for users to choose from, and gives 5 most possible
 answers corresponding to the input passage and query.
 
-These instructions walk you through running the demo on an Android device.
+These instructions walk you through running the demo on an Android device.For an explanation of the source, see
+[TensorFlow Lite Android BERT QA Android example](EXPLORE_THE_CODE.md).
 
 ### Model used
 
@@ -18,7 +19,7 @@ These instructions walk you through running the demo on an Android device.
 of pre-training language representations which obtains state-of-the-art results
 on a wide array of Natural Language Processing tasks.
 
-This app uses [MobileBERT](https://tfhub.dev/tensorflow/tfjs-model/mobilebert/1 "MobileBERT"), a compressed version of [BERT] that runs 4x faster and
+This app uses [MobileBERT], a compressed version of [BERT] that runs 4x faster and
 has 4x smaller model size.
 
 For more information, refer to the [BERT github page][BERT].
@@ -84,3 +85,4 @@ adb install app/build/outputs/apk/debug/app-debug.apk
 
 [BERT]: https://github.com/google-research/bert "Bert"
 [SQuAD]: https://rajpurkar.github.io/SQuAD-explorer/ "SQuAD"
+[MobileBERT]:https://tfhub.dev/tensorflow/tfjs-model/mobilebert/1 "MobileBERT"
