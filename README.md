@@ -2,14 +2,17 @@
 
 This document walks through the code of a simple Android mobile application that
 demonstrates
-[BERT Question and Answer](https://www.tensorflow.org/lite/examples/bert_qa/overview)
-using the device camera.
+[BERT Question and Answer](https://www.tensorflow.org/lite/examples/bert_qa/overview).
 
 ## Explore the code
 
+The app is written entirely in Java and uses the TensorFlow Lite
+[Java library](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/lite/java)
+for performing BERT Question and Answer.
+
 We're now going to walk through the most important parts of the sample code.
 
-### Get camera input
+### Get the question and the context of the question
 
 This mobile application gets the camera input using the functions defined in the
 file
