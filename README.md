@@ -14,50 +14,15 @@ We're now going to walk through the most important parts of the sample code.
 
 ### Get the question and the context of the question
 
-This mobile application gets the camera input using the functions defined in the
+This mobile application gets the question and the context of the question using the functions defined in the
 file
-[`CameraActivity.java`](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android/app/src/main/java/org/tensorflow/lite/examples/classification/CameraActivity.java).
-This file depends on
-[`AndroidManifest.xml`](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android/app/src/main/AndroidManifest.xml)
-to set the camera orientation.
+[`QaActivity.java`](https://github.com/tensorflow/examples/blob/master/lite/examples/bert_qa/android/app/src/main/java/org/tensorflow/lite/examples/bertqa/ui/QaActivity.java).
 
-`CameraActivity` also contains code to capture user preferences from the UI and
-make them available to other classes via convenience methods.
 
-```java
-model = Model.valueOf(modelSpinner.getSelectedItem().toString().toUpperCase());
-device = Device.valueOf(deviceSpinner.getSelectedItem().toString());
-numThreads = Integer.parseInt(threadsTextView.getText().toString().trim());
-```
+### Answerer
 
-### Classifier
+This BERT QA Android reference app uses the out-of-box API from the [TensorFlow Lite Task Library](https://www.tensorflow.org/lite/inference_with_metadata/task_library/bert_question_answerer).
 
-This Image Classification Android reference app demonstrates two implementation
-solutions,
-[`lib_task_api`](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android/lib_task_api)
-that leverages the out-of-box API from the
-[TensorFlow Lite Task Library](https://www.tensorflow.org/lite/inference_with_metadata/task_library/image_classifier),
-and
-[`lib_support`](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android/lib_support)
-that creates the custom inference pipleline using the
-[TensorFlow Lite Support Library](https://www.tensorflow.org/lite/inference_with_metadata/lite_support).
-
-Both solutions implement the file `Classifier.java` (see
-[the one in lib_task_api](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android/lib_task_api/src/main/java/org/tensorflow/lite/examples/classification/tflite/Classifier.java)
-and
-[the one in lib_support](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android/lib_support/src/main/java/org/tensorflow/lite/examples/classification/tflite/Classifier.java))
-that contains most of the complex logic for processing the camera input and
-running inference.
-
-Two subclasses of the `Classifier` exist, as in `ClassifierFloatMobileNet.java`
-and `ClassifierQuantizedMobileNet.java`, which contain settings for both
-floating point and
-[quantized](https://www.tensorflow.org/lite/performance/post_training_quantization)
-models.
-
-The `Classifier` class implements a static method, `create`, which is used to
-instantiate the appropriate subclass based on the supplied model type (quantized
-vs floating point).
 
 #### Using the TensorFlow Lite Task Library
 
