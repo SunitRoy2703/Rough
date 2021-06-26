@@ -1,8 +1,8 @@
-# TensorFlow Lite Android image classification example
+# TensorFlow Lite BERT QA Android example
 
 This document walks through the code of a simple Android mobile application that
 demonstrates
-[image classification](https://www.tensorflow.org/lite/models/image_classification/overview)
+[BERT Question and Answer](https://www.tensorflow.org/lite/examples/bert_qa/overview)
 using the device camera.
 
 ## Explore the code
