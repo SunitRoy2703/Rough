@@ -24,18 +24,16 @@ file
 This BERT QA Android reference app uses the out-of-box API from the [TensorFlow Lite Task Library](https://www.tensorflow.org/lite/inference_with_metadata/task_library/bert_question_answerer).
 
 
-#### Using the TensorFlow Lite Task Library
-
 Inference can be done using just a few lines of code with the
-[`ImageClassifier`](https://www.tensorflow.org/lite/inference_with_metadata/task_library/image_classifier)
+[`BertQuestionAnswerer`](https://www.tensorflow.org/lite/inference_with_metadata/task_library/bert_question_answerer)
 in the TensorFlow Lite Task Library.
 
-##### Load model and create ImageClassifier
+##### Load model and create BertQuestionAnswerer
 
-`ImageClassifier` expects a model populated with the
+`BertQuestionAnswerer` expects a model populated with the
 [model metadata](https://www.tensorflow.org/lite/convert/metadata) and the label
 file. See the
-[model compatibility requirements](https://www.tensorflow.org/lite/inference_with_metadata/task_library/image_classifier#model_compatibility_requirements)
+[model compatibility requirements](https://www.tensorflow.org/lite/inference_with_metadata/task_library/bert_question_answerer#model_compatibility_requirements)
 for more details.
 
 `ImageClassifierOptions` allows manipulation on various inference options, such
