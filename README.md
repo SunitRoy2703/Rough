@@ -7,7 +7,7 @@ demonstrates
 ## Explore the code
 
 The app is written entirely in Java and uses the TensorFlow Lite
-[Java library](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/lite/java)
+[Java library](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/lite/java)<!-- https://github.com/tensorflow/tflite-support/tree/master/tensorflow_lite_support/java -->
 for performing BERT Question and Answer.
 
 We're now going to walk through the most important parts of the sample code.
@@ -21,7 +21,7 @@ file
 
 ### Answerer
 
-This BERT QA Android reference app uses the out-of-box API from the [TensorFlow Lite Task Library](https://www.tensorflow.org/lite/inference_with_metadata/task_library/bert_question_answerer).
+This BERT QA Android reference app uses the out-of-box [`BertQuestionAnswerer`](https://www.tensorflow.org/lite/inference_with_metadata/task_library/bert_question_answerer) API from the [TensorFlow Lite Task Library](https://www.tensorflow.org/lite/inference_with_metadata/task_library/bert_question_answerer).
 
 
 Inference can be done using just a few lines of code with the
@@ -36,17 +36,18 @@ file. See the
 [model compatibility requirements](https://www.tensorflow.org/lite/inference_with_metadata/task_library/bert_question_answerer#model_compatibility_requirements)
 for more details.
 
-`ImageClassifierOptions` allows manipulation on various inference options, such
-as setting the maximum number of top scored results to return using
-`setMaxResults(MAX_RESULTS)`, and setting the score threshold using
-`setScoreThreshold(scoreThreshold)`.
 
 ```java
-// Create the ImageClassifier instance.
-ImageClassifierOptions options =
-    ImageClassifierOptions.builder().setMaxResults(MAX_RESULTS).build();
-imageClassifier = ImageClassifier.createFromFileAndOptions(activity,
-    getModelPath(), options);
+/**
+ * Load TF Lite model.
+ */
+ public void loadModel() {
+     try {
+         answerer = BertQuestionAnswerer.createFromFile(context, MODEL_PATH);
+     } catch (IOException e) {
+         Log.e(TAG, e.getMessage());
+     }
+ }
 ```
 
 `ImageClassifier` currently does not support configuring delegates and
@@ -63,24 +64,14 @@ the up-right angle and cropped to the center as the model expects a square input
 for more details about how the underlying image processing is performed.
 
 ```java
-TensorImage inputImage = TensorImage.fromBitmap(bitmap);
-int width = bitmap.getWidth();
-int height = bitmap.getHeight();
-int cropSize = min(width, height);
-ImageProcessingOptions imageOptions =
-    ImageProcessingOptions.builder()
-        .setOrientation(getOrientation(sensorOrientation))
-        // Set the ROI to the center of the image.
-        .setRoi(
-            new Rect(
-                /*left=*/ (width - cropSize) / 2,
-                /*top=*/ (height - cropSize) / 2,
-                /*right=*/ (width + cropSize) / 2,
-                /*bottom=*/ (height + cropSize) / 2))
-        .build();
+ /**
+  * Run inference and predict the possible answers.
+  */
+  public List<QaAnswer> predict(String questionToAsk, String contextOfTheQuestion) {
 
-List<Classifications> results = imageClassifier.classify(inputImage,
-    imageOptions);
+      List<QaAnswer> apiResult = answerer.answer(contextOfTheQuestion, questionToAsk);
+      return apiResult;
+  }
 ```
 
 The output of `ImageClassifier` is a list of `Classifications` instance, where
