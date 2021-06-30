@@ -217,37 +217,3 @@ private void answerQuestion(String question) {
                 });
     }
 ```
-
-Another important role of `ClassifierActivity` is to determine user preferences
-(by interrogating `CameraActivity`), and instantiate the appropriately
-configured `Classifier` subclass. This happens when the video feed begins (via
-`onPreviewSizeChosen()`) and when options are changed in the UI (via
-`onInferenceConfigurationChanged()`).
-
-```java
-private void recreateClassifier(Model model, Device device, int numThreads) {
-  if (classifier != null) {
-    LOGGER.d("Closing classifier.");
-    classifier.close();
-    classifier = null;
-  }
-  if (device == Device.GPU && model == Model.QUANTIZED) {
-    LOGGER.d("Not creating classifier: GPU doesn't support quantized models.");
-    runOnUiThread(
-        () -> {
-          Toast.makeText(this, "GPU does not yet supported quantized models.",
-              Toast.LENGTH_LONG)
-              .show();
-        });
-    return;
-  }
-  try {
-    LOGGER.d(
-        "Creating classifier (model=%s, device=%s, numThreads=%d)", model,
-        device, numThreads);
-    classifier = Classifier.create(this, model, device, numThreads);
-  } catch (IOException e) {
-    LOGGER.e(e, "Failed to create classifier.");
-  }
-}
-```
