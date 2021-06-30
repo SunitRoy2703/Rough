@@ -1,224 +1,86 @@
-# TensorFlow Lite BERT QA Android example
+# TensorFlow Lite text classification sample
 
-This document walks through the code of a simple Android mobile application that
-demonstrates
-[BERT Question and Answer](https://www.tensorflow.org/lite/examples/bert_qa/overview).
+## Overview
 
-## Explore the code
+This is an end-to-end example of movie review sentiment classification built
+with TensorFlow 2.0 (Keras API), and trained on IMDB dataset. The demo app
+processes input movie review texts, and classifies its sentiment into negative
+(0) or positive (1).
 
-The app is written entirely in Java and uses the TensorFlow Lite
-[Java library](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/lite/java)<!-- https://github.com/tensorflow/tflite-support/tree/master/tensorflow_lite_support/java -->
-for performing BERT Question and Answer.
+These instructions walk you through the steps to train and test a simple text
+classification model, export them to TensorFlow Lite format and deploy on a
+mobile app.
 
-We're now going to walk through the most important parts of the sample code.
+## Model
 
-### Get the question and the context of the question
+See
+[Text Classification with Movie Reviews](https://www.tensorflow.org/tutorials/keras/basic_text_classification)
+for a step-by-step instruction of building a simple text classification model.
 
-This mobile application gets the question and the context of the question using the functions defined in the
-file
-[`QaActivity.java`](https://github.com/tensorflow/examples/blob/master/lite/examples/bert_qa/android/app/src/main/java/org/tensorflow/lite/examples/bertqa/ui/QaActivity.java).
+## Android app
 
+Follow the steps below to build and run the sample Android app.
 
-### Answerer
+### Requirements
 
-This BERT QA Android reference app uses the out-of-box [`BertQuestionAnswerer`](https://www.tensorflow.org/lite/inference_with_metadata/task_library/bert_question_answerer) API from the [TensorFlow Lite Task Library](https://www.tensorflow.org/lite/inference_with_metadata/task_library/bert_question_answerer).
+*   Android Studio 3.2 or later. Install instructions can be found on
+    [Android Studio](https://developer.android.com/studio/index.html) website.
 
+*   An Android device or an Android emulator and with API level higher than 21.
 
-Inference can be done using just a few lines of code with the
-[`BertQuestionAnswerer`](https://www.tensorflow.org/lite/inference_with_metadata/task_library/bert_question_answerer)
-in the TensorFlow Lite Task Library.
+### Building
 
-##### Load model and create BertQuestionAnswerer
+*   Open Android Studio, and from the Welcome screen, select `Open an existing
+    Android Studio project`.
 
-`BertQuestionAnswerer` expects a model populated with the
-[model metadata](https://www.tensorflow.org/lite/convert/metadata) and the label
-file. See the
-[model compatibility requirements](https://www.tensorflow.org/lite/inference_with_metadata/task_library/bert_question_answerer#model_compatibility_requirements)
+*   From the Open File or Project window that appears, navigate to and select
+    the `text_classification/android` directory from wherever you cloned the
+    TensorFlow Lite sample GitHub repo.
+
+*   You may also need to install various platforms and tools according to error
+    messages.
+
+*   If it asks you to use Instant Run, click Proceed Without Instant Run.
+
+### Running
+
+*   You need to have an Android device plugged in with developer options enabled
+    at this point. See [here](https://developer.android.com/studio/run/device)
+    for more details on setting up developer devices.
+
+*   If you already have an Android emulator installed in Android Studio, select
+    a virtual device with API level higher than 15.
+
+*   Click `Run` to run the demo app on your Android device.
+
+#### Switch between inference solutions (Task library vs TFLite Interpreter)
+
+This Text Classification Android reference app demonstrates two implementation
+solutions:
+
+(1)
+[`lib_task_api`](https://github.com/tensorflow/examples/tree/master/lite/examples/nl_classification/android/lib_task_api)
+that leverages the out-of-box API from the
+[TensorFlow Lite Task Library](https://www.tensorflow.org/lite/inference_with_metadata/task_library/text_classifier);
+
+(2)
+[`lib_interpreter`](https://github.com/tensorflow/examples/tree/master/lite/examples/text_classification/android/lib_interpreter)
+that creates the custom inference pipleline using the
+[TensorFlow Lite Interpreter Java API](https://www.tensorflow.org/lite/guide/inference#load_and_run_a_model_in_java).
+
+The [`build.gradle`](app/build.gradle) inside `app` folder shows how to change
+`flavorDimensions "tfliteInference"` to switch between the two solutions.
+
+Inside **Android Studio**, you can change the build variant to whichever one you
+want to build and run—just go to `Build > Select Build Variant` and select one
+from the drop-down menu. See
+[configure product flavors in Android Studio](https://developer.android.com/studio/build/build-variants#product-flavors)
 for more details.
 
+For gradle CLI, running `./gradlew build` can create APKs for both solutions
+under `app/build/outputs/apk`.
 
-```java
-/**
- * Load TF Lite model.
- */
- public void loadModel() {
-     try {
-         answerer = BertQuestionAnswerer.createFromFile(context, MODEL_PATH);
-     } catch (IOException e) {
-         Log.e(TAG, e.getMessage());
-     }
- }
-```
-
-`ImageClassifier` currently does not support configuring delegates and
-multithread, but those are on our roadmap. Please stay tuned!
-
-##### Run inference
-
-`ImageClassifier` contains builtin logic to preprocess the input image, such as
-rotating and resizing an image. Processing options can be configured through
-`ImageProcessingOptions`. In the following example, input images are rotated to
-the up-right angle and cropped to the center as the model expects a square input
-(`224x224`). See the
-[Java doc of `ImageClassifier`](https://github.com/tensorflow/tflite-support/blob/195b574f0aa9856c618b3f1ad87bd185cddeb657/tensorflow_lite_support/java/src/java/org/tensorflow/lite/task/core/vision/ImageProcessingOptions.java#L22)
-for more details about how the underlying image processing is performed.
-
-```java
- /**
-  * Run inference and predict the possible answers.
-  */
-  public List<QaAnswer> predict(String questionToAsk, String contextOfTheQuestion) {
-
-      List<QaAnswer> apiResult = answerer.answer(contextOfTheQuestion, questionToAsk);
-      return apiResult;
-  }
-```
-
-The output of `ImageClassifier` is a list of `Classifications` instance, where
-each `Classifications` element is a single head classification result. All the
-demo models are single head models, therefore, `results` only contains one
-`Classifications` object. Use `Classifications.getCategories()` to get a list of
-top-k categories as specified with `MAX_RESULTS`. Each `Category` object
-contains the srting label and the score of that category.
-
-To match the implementation of
-[`lib_support`](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android/lib_support),
-`results` is converted into `List<Recognition>` in the method,
-`getRecognitions`.
-
-##### Recognize image
-
-Rather than call `run` directly, the method `recognizeImage` is used. It accepts
-a bitmap and sensor orientation, runs inference, and returns a sorted `List` of
-`Recognition` instances, each corresponding to a label. The method will return a
-number of results bounded by `MAX_RESULTS`, which is 3 by default.
-
-`Recognition` is a simple class that contains information about a specific
-recognition result, including its `title` and `confidence`. Using the
-post-processing normalization method specified, the confidence is converted to
-between 0 and 1 of a given class being represented by the image.
-
-```java
-/** Gets the label to probability map. */
-Map<String, Float> labeledProbability =
-    new TensorLabel(labels,
-        probabilityProcessor.process(outputProbabilityBuffer))
-        .getMapWithFloatValue();
-```
-
-A `PriorityQueue` is used for sorting.
-
-```java
-/** Gets the top-k results. */
-private static List<Recognition> getTopKProbability(
-    Map<String, Float> labelProb) {
-  // Find the best classifications.
-  PriorityQueue<Recognition> pq =
-      new PriorityQueue<>(
-          MAX_RESULTS,
-          new Comparator<Recognition>() {
-            @Override
-            public int compare(Recognition lhs, Recognition rhs) {
-              // Intentionally reversed to put high confidence at the head of
-              // the queue.
-              return Float.compare(rhs.getConfidence(), lhs.getConfidence());
-            }
-          });
-
-  for (Map.Entry<String, Float> entry : labelProb.entrySet()) {
-    pq.add(new Recognition("" + entry.getKey(), entry.getKey(),
-               entry.getValue(), null));
-  }
-
-  final ArrayList<Recognition> recognitions = new ArrayList<>();
-  int recognitionsSize = Math.min(pq.size(), MAX_RESULTS);
-  for (int i = 0; i < recognitionsSize; ++i) {
-    recognitions.add(pq.poll());
-  }
-  return recognitions;
-}
-```
-
-### Display results
-
-The classifier is invoked and inference results are displayed by the
-`processImage()` function in
-[`ClassifierActivity.java`](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android/app/src/main/java/org/tensorflow/lite/examples/classification/ClassifierActivity.java).
-
-`ClassifierActivity` is a subclass of `CameraActivity` that contains method
-implementations that render the camera image, run classification, and display
-the results. The method `processImage()` runs classification on a background
-thread as fast as possible, rendering information on the UI thread to avoid
-blocking inference and creating latency.
-
-```java
-@Override
-protected void processImage() {
-  rgbFrameBitmap.setPixels(getRgbBytes(), 0, previewWidth, 0, 0, previewWidth,
-      previewHeight);
-  final int imageSizeX = classifier.getImageSizeX();
-  final int imageSizeY = classifier.getImageSizeY();
-
-  runInBackground(
-      new Runnable() {
-        @Override
-        public void run() {
-          if (classifier != null) {
-            final long startTime = SystemClock.uptimeMillis();
-            final List<Classifier.Recognition> results =
-                classifier.recognizeImage(rgbFrameBitmap, sensorOrientation);
-            lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
-            LOGGER.v("Detect: %s", results);
-
-            runOnUiThread(
-                new Runnable() {
-                  @Override
-                  public void run() {
-                    showResultsInBottomSheet(results);
-                    showFrameInfo(previewWidth + "x" + previewHeight);
-                    showCropInfo(imageSizeX + "x" + imageSizeY);
-                    showCameraResolution(imageSizeX + "x" + imageSizeY);
-                    showRotationInfo(String.valueOf(sensorOrientation));
-                    showInference(lastProcessingTimeMs + "ms");
-                  }
-                });
-          }
-          readyForNextImage();
-        }
-      });
-}
-```
-
-Another important role of `ClassifierActivity` is to determine user preferences
-(by interrogating `CameraActivity`), and instantiate the appropriately
-configured `Classifier` subclass. This happens when the video feed begins (via
-`onPreviewSizeChosen()`) and when options are changed in the UI (via
-`onInferenceConfigurationChanged()`).
-
-```java
-private void recreateClassifier(Model model, Device device, int numThreads) {
-  if (classifier != null) {
-    LOGGER.d("Closing classifier.");
-    classifier.close();
-    classifier = null;
-  }
-  if (device == Device.GPU && model == Model.QUANTIZED) {
-    LOGGER.d("Not creating classifier: GPU doesn't support quantized models.");
-    runOnUiThread(
-        () -> {
-          Toast.makeText(this, "GPU does not yet supported quantized models.",
-              Toast.LENGTH_LONG)
-              .show();
-        });
-    return;
-  }
-  try {
-    LOGGER.d(
-        "Creating classifier (model=%s, device=%s, numThreads=%d)", model,
-        device, numThreads);
-    classifier = Classifier.create(this, model, device, numThreads);
-  } catch (IOException e) {
-    LOGGER.e(e, "Failed to create classifier.");
-  }
-}
-```
+*Note: If you simply want the out-of-box API to run the app, we recommend
+`lib_task_api`for inference. If you want to customize your own models and
+control the detail of inputs and outputs, it might be easier to adapt your model
+inputs and outputs by using `lib_interpreter`.*
