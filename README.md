@@ -152,41 +152,70 @@ thread as fast as possible, rendering information on the UI thread to avoid
 blocking inference and creating latency.
 
 ```java
-@Override
-protected void processImage() {
-  rgbFrameBitmap.setPixels(getRgbBytes(), 0, previewWidth, 0, 0, previewWidth,
-      previewHeight);
-  final int imageSizeX = classifier.getImageSizeX();
-  final int imageSizeY = classifier.getImageSizeY();
-
-  runInBackground(
-      new Runnable() {
-        @Override
-        public void run() {
-          if (classifier != null) {
-            final long startTime = SystemClock.uptimeMillis();
-            final List<Classifier.Recognition> results =
-                classifier.recognizeImage(rgbFrameBitmap, sensorOrientation);
-            lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
-            LOGGER.v("Detect: %s", results);
-
-            runOnUiThread(
-                new Runnable() {
-                  @Override
-                  public void run() {
-                    showResultsInBottomSheet(results);
-                    showFrameInfo(previewWidth + "x" + previewHeight);
-                    showCropInfo(imageSizeX + "x" + imageSizeY);
-                    showCameraResolution(imageSizeX + "x" + imageSizeY);
-                    showRotationInfo(String.valueOf(sensorOrientation));
-                    showInference(lastProcessingTimeMs + "ms");
-                  }
-                });
-          }
-          readyForNextImage();
+private void answerQuestion(String question) {
+        question = question.trim();
+        if (question.isEmpty()) {
+            questionEditText.setText(question);
+            return;
         }
-      });
-}
+
+        // Append question mark '?' if not ended with '?'.
+        // This aligns with question format that trains the model.
+        if (!question.endsWith("?")) {
+            question += '?';
+        }
+        final String questionToAsk = question;
+        questionEditText.setText(questionToAsk);
+
+        // Delete all pending tasks.
+        handler.removeCallbacksAndMessages(null);
+
+        // Hide keyboard and dismiss focus on text edit.
+        InputMethodManager imm =
+                (InputMethodManager) getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
+        View focusView = getCurrentFocus();
+        if (focusView != null) {
+            focusView.clearFocus();
+        }
+
+        // Reset content text view
+        contentTextView.setText(content);
+
+        questionAnswered = false;
+
+        // Start showing Looking up snackbar
+        Snackbar runningSnackbar =
+                Snackbar.make(contentTextView, "Looking up answer...", Snackbar.LENGTH_INDEFINITE);
+        runningSnackbar.show();
+
+        // Run TF Lite model to get the answer.
+        handler.post(
+                () -> {
+                    long beforeTime = System.currentTimeMillis();
+                    final List<QaAnswer> answers = qaClient.predict(questionToAsk, content);
+                    long afterTime = System.currentTimeMillis();
+                    double totalSeconds = (afterTime - beforeTime) / 1000.0;
+
+                    if (!answers.isEmpty()) {
+                        // Get the top answer
+                        QaAnswer topAnswer = answers.get(0);
+                        // Dismiss the snackbar and show the answer.
+                        runOnUiThread(
+                                () -> {
+                                    runningSnackbar.dismiss();
+                                    presentAnswer(topAnswer);
+
+                                    String displayMessage = "Top answer was successfully highlighted.";
+                                    if (DISPLAY_RUNNING_TIME) {
+                                        displayMessage = String.format("%s %.3fs.", displayMessage, totalSeconds);
+                                    }
+                                    Snackbar.make(contentTextView, displayMessage, Snackbar.LENGTH_LONG).show();
+                                    questionAnswered = true;
+                                });
+                    }
+                });
+    }
 ```
 
 Another important role of `ClassifierActivity` is to determine user preferences
