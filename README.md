@@ -24,6 +24,11 @@ file
 This BERT QA Android reference app uses the out-of-box [`BertQuestionAnswerer`](https://www.tensorflow.org/lite/inference_with_metadata/task_library/bert_question_answerer) API from the [TensorFlow Lite Task Library](https://www.tensorflow.org/lite/inference_with_metadata/task_library/bert_question_answerer).
 
 
+The file
+[`QaClient.java`](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android/lib_support/src/main/java/org/tensorflow/lite/examples/classification/tflite/Classifier.java)
+contains most of the logic for running
+inference.
+
 Inference can be done using just a few lines of code with the
 [`BertQuestionAnswerer`](https://www.tensorflow.org/lite/inference_with_metadata/task_library/bert_question_answerer)
 in the TensorFlow Lite Task Library.
