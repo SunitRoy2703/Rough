@@ -5,7 +5,7 @@
 ## Overview
 
 This is an end-to-end example of movie review sentiment classification built
-with TensorFlow 2.0 (Keras API), and trained on IMDB dataset. The demo app
+with TensorFlow 2.0 (Keras API), and trained on [IMDB dataset](http://ai.stanford.edu/%7Eamaas/data/sentiment/) version 1.0. The demo app
 processes input movie review texts, and classifies its sentiment into negative
 (0) or positive (1).
 
@@ -16,7 +16,7 @@ mobile app.
 ## Model
 
 See
-[Text Classification with Movie Reviews](https://www.tensorflow.org/tutorials/keras/basic_text_classification)
+[Text Classification with Movie Reviews](https://www.tensorflow.org/tutorials/keras/text_classification)
 for a step-by-step instruction of building a simple text classification model.
 
 ## Build the demo using Android Studio
