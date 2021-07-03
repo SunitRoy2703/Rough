@@ -7,7 +7,7 @@ demonstrates
 ## Explore the code
 
 The app is written entirely in Java and uses the TensorFlow Lite
-[Java library](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/lite/java)<!-- https://github.com/tensorflow/tflite-support/tree/master/tensorflow_lite_support/java -->
+[Java library](https://github.com/tensorflow/tflite-support/tree/master/tensorflow_lite_support/java)
 for performing BERT Question and Answer.
 
 We're now going to walk through the most important parts of the sample code.
