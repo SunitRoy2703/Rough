@@ -34,7 +34,7 @@ that creates the custom inference pipleline using the
 Both solutions implement the file `QaClient.java` (see
 [the one in lib_task_api](https://github.com/SunitRoy2703/examples/blob/bertQa-android-task-lib/lite/examples/bert_qa/android/lib_task_api/src/main/java/org/tensorflow/lite/examples/bertqa/ml/QaClient.java)
 and
-[the one in lib_interpreter](https://github.com/SunitRoy2703/examples/blob/bertQa-android-task-lib/lite/examples/bert_qa/android/lib_interpreter/src/main/java/org/tensorflow/lite/examples/bertqa/ml/QaClient.java))
+[the one in lib_interpreter](https://github.com/SunitRoy2703/examples/blob/bertQa-android-task-lib/lite/examples/bert_qa/android/lib_interpreter/src/main/java/org/tensorflow/lite/examples/bertqa/ml/QaClient.java)
 that contains most of the complex logic for processing the text input and
 running inference.
 
@@ -55,7 +55,7 @@ for more details.
 
 ```java
 /**
- * Load TF Lite model.
+ * Load TFLite model and create BertQuestionAnswerer instance.
  */
  public void loadModel() {
      try {
@@ -66,18 +66,12 @@ for more details.
  }
 ```
 
-`ImageClassifier` currently does not support configuring delegates and
+`BertQuestionAnswerer` currently does not support configuring delegates and
 multithread, but those are on our roadmap. Please stay tuned!
 
 ##### Run inference
 
-`ImageClassifier` contains builtin logic to preprocess the input image, such as
-rotating and resizing an image. Processing options can be configured through
-`ImageProcessingOptions`. In the following example, input images are rotated to
-the up-right angle and cropped to the center as the model expects a square input
-(`224x224`). See the
-[Java doc of `ImageClassifier`](https://github.com/tensorflow/tflite-support/blob/195b574f0aa9856c618b3f1ad87bd185cddeb657/tensorflow_lite_support/java/src/java/org/tensorflow/lite/task/core/vision/ImageProcessingOptions.java#L22)
-for more details about how the underlying image processing is performed.
+The following code runs inference using `BertQuestionAnswerer` and predicts the possible answers
 
 ```java
  /**
@@ -90,17 +84,14 @@ for more details about how the underlying image processing is performed.
   }
 ```
 
-The output of `ImageClassifier` is a list of `Classifications` instance, where
-each `Classifications` element is a single head classification result. All the
+The output of `BertQuestionAnswerer` is a list of [`QaAnswer`](https://github.com/tensorflow/tflite-support/blob/master/tensorflow_lite_support/java/src/java/org/tensorflow/lite/task/text/qa/QaAnswer.java) instance, where
+each `QaAnswer` element is a single head classification result. All the
 demo models are single head models, therefore, `results` only contains one
-`Classifications` object. Use `Classifications.getCategories()` to get a list of
-top-k categories as specified with `MAX_RESULTS`. Each `Category` object
-contains the srting label and the score of that category.
+`QaAnswer` object.
 
 To match the implementation of
-[`lib_support`](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android/lib_support),
-`results` is converted into `List<Recognition>` in the method,
-`getRecognitions`.
+[`lib_interpreter`](https://github.com/SunitRoy2703/examples/tree/bertQa-android-task-lib/lite/examples/bert_qa/android/lib_interpreter),
+`results` is converted into List<[`Answer`](https://github.com/SunitRoy2703/examples/blob/bertQa-android-task-lib/lite/examples/bert_qa/android/lib_task_api/src/main/java/org/tensorflow/lite/examples/bertqa/ml/Answer.java)>.
 
 ##### Recognize image
 
