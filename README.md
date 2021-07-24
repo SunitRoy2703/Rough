@@ -7,7 +7,7 @@ demonstrates
 ## Explore the code
 
 The app is written entirely in Java and uses the TensorFlow Lite
-[Java library](https://github.com/tensorflow/tflite-support/tree/master/tensorflow_lite_support/java)
+[Java library](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/lite/java)
 for performing BERT Question and Answer.
 
 We're now going to walk through the most important parts of the sample code.
@@ -21,13 +21,24 @@ file
 
 ### Answerer
 
-This BERT QA Android reference app uses the out-of-box [`BertQuestionAnswerer`](https://www.tensorflow.org/lite/inference_with_metadata/task_library/bert_question_answerer) API from the [TensorFlow Lite Task Library](https://www.tensorflow.org/lite/inference_with_metadata/task_library/bert_question_answerer).
+This BERT QA Android reference app demonstrates two implementation
+solutions,
+[`lib_task_api`](https://github.com/SunitRoy2703/examples/tree/bertQa-android-task-lib/lite/examples/bert_qa/android/lib_task_api)
+that leverages the out-of-box API from the
+[TensorFlow Lite Task Library](https://www.tensorflow.org/lite/inference_with_metadata/task_library/bert_question_answerer),
+and
+[`lib_interpreter`](https://github.com/SunitRoy2703/examples/tree/bertQa-android-task-lib/lite/examples/bert_qa/android/lib_interpreter)
+that creates the custom inference pipleline using the
+[TensorFlow Lite Interpreter Java API](https://www.tensorflow.org/lite/guide/inference#load_and_run_a_model_in_java).
 
+Both solutions implement the file `QaClient.java` (see
+[the one in lib_task_api](https://github.com/SunitRoy2703/examples/blob/bertQa-android-task-lib/lite/examples/bert_qa/android/lib_task_api/src/main/java/org/tensorflow/lite/examples/bertqa/ml/QaClient.java)
+and
+[the one in lib_interpreter](https://github.com/SunitRoy2703/examples/blob/bertQa-android-task-lib/lite/examples/bert_qa/android/lib_interpreter/src/main/java/org/tensorflow/lite/examples/bertqa/ml/QaClient.java))
+that contains most of the complex logic for processing the text input and
+running inference.
 
-The file
-[`QaClient.java`](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android/lib_support/src/main/java/org/tensorflow/lite/examples/classification/tflite/Classifier.java)
-contains most of the logic for running
-inference.
+#### Using the TensorFlow Lite Task Library
 
 Inference can be done using just a few lines of code with the
 [`BertQuestionAnswerer`](https://www.tensorflow.org/lite/inference_with_metadata/task_library/bert_question_answerer)
