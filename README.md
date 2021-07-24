@@ -77,11 +77,8 @@ The following code runs inference using `BertQuestionAnswerer` and predicts the 
  /**
   * Run inference and predict the possible answers.
   */
-  public List<QaAnswer> predict(String questionToAsk, String contextOfTheQuestion) {
-
       List<QaAnswer> apiResult = answerer.answer(contextOfTheQuestion, questionToAsk);
-      return apiResult;
-  }
+     
 ```
 
 The output of `BertQuestionAnswerer` is a list of [`QaAnswer`](https://github.com/tensorflow/tflite-support/blob/master/tensorflow_lite_support/java/src/java/org/tensorflow/lite/task/text/qa/QaAnswer.java) instance, where
@@ -93,134 +90,80 @@ To match the implementation of
 [`lib_interpreter`](https://github.com/SunitRoy2703/examples/tree/bertQa-android-task-lib/lite/examples/bert_qa/android/lib_interpreter),
 `results` is converted into List<[`Answer`](https://github.com/SunitRoy2703/examples/blob/bertQa-android-task-lib/lite/examples/bert_qa/android/lib_task_api/src/main/java/org/tensorflow/lite/examples/bertqa/ml/Answer.java)>.
 
-##### Recognize image
+#### Using the TensorFlow Lite Interpreter
 
-Rather than call `run` directly, the method `recognizeImage` is used. It accepts
-a bitmap and sensor orientation, runs inference, and returns a sorted `List` of
-`Recognition` instances, each corresponding to a label. The method will return a
-number of results bounded by `MAX_RESULTS`, which is 3 by default.
+##### Load model and create interpreter
 
-`Recognition` is a simple class that contains information about a specific
-recognition result, including its `title` and `confidence`. Using the
-post-processing normalization method specified, the confidence is converted to
-between 0 and 1 of a given class being represented by the image.
+To perform inference, we need to load a model file and instantiate an
+`Interpreter`. This happens in the `loadModel` method of the `QaClient` class. Information about number of threads is used to configure the `Interpreter` via the
+`Interpreter.Options` instance passed into its constructor.
 
 ```java
-/** Gets the label to probability map. */
-Map<String, Float> labeledProbability =
-    new TensorLabel(labels,
-        probabilityProcessor.process(outputProbabilityBuffer))
-        .getMapWithFloatValue();
+Interpreter.Options opt = new Interpreter.Options();
+      opt.setNumThreads(NUM_LITE_THREADS);
+      tflite = new Interpreter(buffer, opt);
+...
 ```
 
-A `PriorityQueue` is used for sorting.
+##### Pre-process query & content
+
+Next in the `predict` method of the `QaClient` class, we take the input of query & content,
+convert it to a `Feature` format for efficient processing and pre-process
+it. The steps are shown in the public 'FeatureConverter.convert()' method:
 
 ```java
-/** Gets the top-k results. */
-private static List<Recognition> getTopKProbability(
-    Map<String, Float> labelProb) {
-  // Find the best classifications.
-  PriorityQueue<Recognition> pq =
-      new PriorityQueue<>(
-          MAX_RESULTS,
-          new Comparator<Recognition>() {
-            @Override
-            public int compare(Recognition lhs, Recognition rhs) {
-              // Intentionally reversed to put high confidence at the head of
-              // the queue.
-              return Float.compare(rhs.getConfidence(), lhs.getConfidence());
-            }
-          });
 
-  for (Map.Entry<String, Float> entry : labelProb.entrySet()) {
-    pq.add(new Recognition("" + entry.getKey(), entry.getKey(),
-               entry.getValue(), null));
-  }
+public Feature convert(String query, String context) {
+    List<String> queryTokens = tokenizer.tokenize(query);
+    if (queryTokens.size() > maxQueryLen) {
+      queryTokens = queryTokens.subList(0, maxQueryLen);
+    }
 
-  final ArrayList<Recognition> recognitions = new ArrayList<>();
-  int recognitionsSize = Math.min(pq.size(), MAX_RESULTS);
-  for (int i = 0; i < recognitionsSize; ++i) {
-    recognitions.add(pq.poll());
-  }
-  return recognitions;
-}
+    List<String> origTokens = Arrays.asList(context.trim().split("\\s+"));
+    List<Integer> tokenToOrigIndex = new ArrayList<>();
+    List<String> allDocTokens = new ArrayList<>();
+    for (int i = 0; i < origTokens.size(); i++) {
+      String token = origTokens.get(i);
+      List<String> subTokens = tokenizer.tokenize(token);
+      for (String subToken : subTokens) {
+        tokenToOrigIndex.add(i);
+        allDocTokens.add(subToken);
+      }
+    }
+
+```
+
+##### Run inference
+
+Inference is performed using the following in `QaClient` class:
+
+```java
+tflite.runForMultipleInputsOutputs(inputs, output);
 ```
 
 ### Display results
 
-The classifier is invoked and inference results are displayed by the
-`processImage()` function in
-[`ClassifierActivity.java`](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android/app/src/main/java/org/tensorflow/lite/examples/classification/ClassifierActivity.java).
-
-`ClassifierActivity` is a subclass of `CameraActivity` that contains method
-implementations that render the camera image, run classification, and display
-the results. The method `processImage()` runs classification on a background
-thread as fast as possible, rendering information on the UI thread to avoid
-blocking inference and creating latency.
+The QaClient is invoked and inference results are displayed by the
+`presentAnswer()` function in
+[`QaActivity.java`](https://github.com/SunitRoy2703/examples/blob/bertQa-android-task-lib/lite/examples/bert_qa/android/app/src/main/java/org/tensorflow/lite/examples/bertqa/QaActivity.java).
 
 ```java
-private void answerQuestion(String question) {
-        question = question.trim();
-        if (question.isEmpty()) {
-            questionEditText.setText(question);
-            return;
+private void presentAnswer(Answer answer) {
+        // Highlight answer.
+        Spannable spanText = new SpannableString(content);
+        int offset = content.indexOf(answer.text, 0);
+        if (offset >= 0) {
+            spanText.setSpan(
+                    new BackgroundColorSpan(getColor(R.color.tfe_qa_color_highlight)),
+                    offset,
+                    offset + answer.text.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
+        contentTextView.setText(spanText);
 
-        // Append question mark '?' if not ended with '?'.
-        // This aligns with question format that trains the model.
-        if (!question.endsWith("?")) {
-            question += '?';
+        // Use TTS to speak out the answer.
+        if (textToSpeech != null) {
+            textToSpeech.speak(answer.text, TextToSpeech.QUEUE_FLUSH, null, answer.text);
         }
-        final String questionToAsk = question;
-        questionEditText.setText(questionToAsk);
-
-        // Delete all pending tasks.
-        handler.removeCallbacksAndMessages(null);
-
-        // Hide keyboard and dismiss focus on text edit.
-        InputMethodManager imm =
-                (InputMethodManager) getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
-        View focusView = getCurrentFocus();
-        if (focusView != null) {
-            focusView.clearFocus();
-        }
-
-        // Reset content text view
-        contentTextView.setText(content);
-
-        questionAnswered = false;
-
-        // Start showing Looking up snackbar
-        Snackbar runningSnackbar =
-                Snackbar.make(contentTextView, "Looking up answer...", Snackbar.LENGTH_INDEFINITE);
-        runningSnackbar.show();
-
-        // Run TF Lite model to get the answer.
-        handler.post(
-                () -> {
-                    long beforeTime = System.currentTimeMillis();
-                    final List<QaAnswer> answers = qaClient.predict(questionToAsk, content);
-                    long afterTime = System.currentTimeMillis();
-                    double totalSeconds = (afterTime - beforeTime) / 1000.0;
-
-                    if (!answers.isEmpty()) {
-                        // Get the top answer
-                        QaAnswer topAnswer = answers.get(0);
-                        // Dismiss the snackbar and show the answer.
-                        runOnUiThread(
-                                () -> {
-                                    runningSnackbar.dismiss();
-                                    presentAnswer(topAnswer);
-
-                                    String displayMessage = "Top answer was successfully highlighted.";
-                                    if (DISPLAY_RUNNING_TIME) {
-                                        displayMessage = String.format("%s %.3fs.", displayMessage, totalSeconds);
-                                    }
-                                    Snackbar.make(contentTextView, displayMessage, Snackbar.LENGTH_LONG).show();
-                                    questionAnswered = true;
-                                });
-                    }
-                });
     }
 ```
