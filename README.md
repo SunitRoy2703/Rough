@@ -145,7 +145,7 @@ tflite.runForMultipleInputsOutputs(inputs, output);
 
 The QaClient is invoked and inference results are displayed by the
 `presentAnswer()` function in
-[`QaActivity.java`](https://github.com/SunitRoy2703/examples/blob/bertQa-android-task-lib/lite/examples/bert_qa/android/app/src/main/java/org/tensorflow/lite/examples/bertqa/QaActivity.java).
+[`QaActivity.java`](lite/examples/bert_qa/android/app/src/main/java/org/tensorflow/lite/examples/bertqa/QaActivity.java).
 
 ```java
 private void presentAnswer(Answer answer) {
