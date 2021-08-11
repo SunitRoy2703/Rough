@@ -1,169 +1,88 @@
-# TensorFlow Lite BERT QA Android example
+# TensorFlow Lite BERT QA iOS Example Application
 
-This document walks through the code of a simple Android mobile application that
-demonstrates
-[BERT Question and Answer](https://www.tensorflow.org/lite/examples/bert_qa/overview).
+![UIKit screencast]       | ![SwiftUI screencast]
+:-----------------------: | :-------------------------:
+UIKit version screen cast | SwiftUI version screen cast
 
-## Explore the code
+## Overview
 
-The app is written entirely in Java and uses the TensorFlow Lite
-[Java library](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/lite/java)
-for performing BERT Question and Answer.
+This is an end-to-end example of [BERT] Question & Answer application built with
+TensorFlow 2.0, and tested on [SQuAD] dataset version 1.1. The demo app provides
+48 passages from the dataset for users to choose from, and gives 5 most possible
+answers corresponding to the input passage and query.
 
-We're now going to walk through the most important parts of the sample code.
+This example includes two types of application and a test set, one application
+is developed with [UIKit], and the other is developed with [SwiftUI]. Each
+application can be run with this XCode project, by choosing the target to build.
+Each application shares the core logic needed to run the BertQA model. The test
+set tests this core logic.
 
-### Get the question and the context of the question
+Question input to the application is discarded after inference.
 
-This mobile application gets the question and the context of the question using the functions defined in the
-file
-[`QaActivity.java`](https://github.com/tensorflow/examples/blob/master/lite/examples/bert_qa/android/app/src/main/java/org/tensorflow/lite/examples/bertqa/ui/QaActivity.java).
+### Model used
 
+[BERT], or Bidirectional Encoder Representations from Transformers, is a method
+of pre-training language representations which obtains state-of-the-art results
+on a wide array of Natural Language Processing tasks.
 
-### Answerer
+This app uses [MobileBERT], a compressed version of [BERT] that runs 4x faster and
+has 4x smaller model size.
 
-This BERT QA Android reference app demonstrates two implementation
-solutions,
-[`lib_task_api`](https://github.com/SunitRoy2703/examples/tree/bertQa-android-task-lib/lite/examples/bert_qa/android/lib_task_api)
-that leverages the out-of-box API from the
-[TensorFlow Lite Task Library](https://www.tensorflow.org/lite/inference_with_metadata/task_library/bert_question_answerer),
-and
-[`lib_interpreter`](https://github.com/SunitRoy2703/examples/tree/bertQa-android-task-lib/lite/examples/bert_qa/android/lib_interpreter)
-that creates the custom inference pipleline using the
-[TensorFlow Lite Interpreter Java API](https://www.tensorflow.org/lite/guide/inference#load_and_run_a_model_in_java).
+For more information, refer to the [BERT github page][BERT].
 
-Both solutions implement the file `QaClient.java` (see
-[the one in lib_task_api](https://github.com/SunitRoy2703/examples/blob/bertQa-android-task-lib/lite/examples/bert_qa/android/lib_task_api/src/main/java/org/tensorflow/lite/examples/bertqa/ml/QaClient.java)
-and
-[the one in lib_interpreter](https://github.com/SunitRoy2703/examples/blob/bertQa-android-task-lib/lite/examples/bert_qa/android/lib_interpreter/src/main/java/org/tensorflow/lite/examples/bertqa/ml/QaClient.java)
-that contains most of the complex logic for processing the text input and
-running inference.
+## Requirements
 
-#### Using the TensorFlow Lite Task Library
+*   Xcode 11.0 or above
 
-Inference can be done using just a few lines of code with the
-[`BertQuestionAnswerer`](https://www.tensorflow.org/lite/inference_with_metadata/task_library/bert_question_answerer)
-in the TensorFlow Lite Task Library.
+*   Valid Apple Developer ID
 
-##### Load model and create BertQuestionAnswerer
+*   Real iOS device
 
-`BertQuestionAnswerer` expects a model populated with the
-[model metadata](https://www.tensorflow.org/lite/convert/metadata) and the label
-file. See the
-[model compatibility requirements](https://www.tensorflow.org/lite/inference_with_metadata/task_library/bert_question_answerer#model_compatibility_requirements)
-for more details.
+    Note: You can also use an iOS emulator, but some of the functionality may
+    not be fully supported.
 
+*   iOS version 12.0 or above
 
-```java
-/**
- * Load TFLite model and create BertQuestionAnswerer instance.
- */
- public void loadModel() {
-     try {
-         answerer = BertQuestionAnswerer.createFromFile(context, MODEL_PATH);
-     } catch (IOException e) {
-         Log.e(TAG, e.getMessage());
-     }
- }
-```
+*   Xcode command line tools (to install, `run xcode-select --install`)
 
-`BertQuestionAnswerer` currently does not support configuring delegates and
-multithread, but those are on our roadmap. Please stay tuned!
+*   CocoaPods (to install, `run sudo gem install cocoapods`)
 
-##### Run inference
+## Build and run
 
-The following code runs inference using `BertQuestionAnswerer` and predicts the possible answers
+1.  Clone the TensorFlow examples GitHub repository to your computer to get the
+    demo application: `git clone https://github.com/tensorflow/examples`
 
-```java
- /**
-  * Run inference and predict the possible answers.
-  */
-      List<QaAnswer> apiResult = answerer.answer(contextOfTheQuestion, questionToAsk);
-     
-```
+1.  Install the pod to generate the workspace file: `cd
+    examples/lite/examples/bert_qa/ios && pod install`
 
-The output of `BertQuestionAnswerer` is a list of [`QaAnswer`](https://github.com/tensorflow/tflite-support/blob/master/tensorflow_lite_support/java/src/java/org/tensorflow/lite/task/text/qa/QaAnswer.java) instance, where
-each `QaAnswer` element is a single head classification result. All the
-demo models are single head models, therefore, `results` only contains one
-`QaAnswer` object.
+    Note: If you have installed this pod before and that command doesn't work,
+    try `pod update`. At the end of this step you should have a directory called
+    `BertQA.xcworkspace`.
 
-To match the implementation of
-[`lib_interpreter`](https://github.com/SunitRoy2703/examples/tree/bertQa-android-task-lib/lite/examples/bert_qa/android/lib_interpreter),
-`results` is converted into List<[`Answer`](https://github.com/SunitRoy2703/examples/blob/bertQa-android-task-lib/lite/examples/bert_qa/android/lib_task_api/src/main/java/org/tensorflow/lite/examples/bertqa/ml/Answer.java)>.
+1.  Open the project in Xcode with the following command: `open
+    BertQA.xcworkspace`
 
-#### Using the TensorFlow Lite Interpreter
+    This launches Xcode and opens the BertQA project.
 
-##### Load model and create interpreter
+1.  In the Menu bar, select `Product` → `Destination` and choose your device.
 
-To perform inference, we need to load a model file and instantiate an
-`Interpreter`. This happens in the `loadModel` method of the `QaClient` class. Information about number of threads is used to configure the `Interpreter` via the
-`Interpreter.Options` instance passed into its constructor.
+1. Follow the direction below if you want to:
+    *   Run the application:
+        1.  In the Menu bar, select `Product` → `Scheme` and choose
+            `BertQA-UIKit` or `BertQA-SwiftUI`.
+        1.  In the Menu bar, select `Product` → `Run` to install the app on your
+            device.
+    *   Test the core logic:
 
-```java
-Interpreter.Options opt = new Interpreter.Options();
-      opt.setNumThreads(NUM_LITE_THREADS);
-      tflite = new Interpreter(buffer, opt);
-...
-```
+        1.  In the Menu bar, select `Product` --> `Scheme` and choose
+            `BertQA-UIKit`.
+        1.  In the Menu bar, select `Product` --> `Test`.
 
-##### Pre-process query & content
-
-Next in the `predict` method of the `QaClient` class, we take the input of query & content,
-convert it to a `Feature` format for efficient processing and pre-process
-it. The steps are shown in the public 'FeatureConverter.convert()' method:
-
-```java
-
-public Feature convert(String query, String context) {
-    List<String> queryTokens = tokenizer.tokenize(query);
-    if (queryTokens.size() > maxQueryLen) {
-      queryTokens = queryTokens.subList(0, maxQueryLen);
-    }
-
-    List<String> origTokens = Arrays.asList(context.trim().split("\\s+"));
-    List<Integer> tokenToOrigIndex = new ArrayList<>();
-    List<String> allDocTokens = new ArrayList<>();
-    for (int i = 0; i < origTokens.size(); i++) {
-      String token = origTokens.get(i);
-      List<String> subTokens = tokenizer.tokenize(token);
-      for (String subToken : subTokens) {
-        tokenToOrigIndex.add(i);
-        allDocTokens.add(subToken);
-      }
-    }
-
-```
-
-##### Run inference
-
-Inference is performed using the following in `QaClient` class:
-
-```java
-tflite.runForMultipleInputsOutputs(inputs, output);
-```
-
-### Display results
-
-The QaClient is invoked and inference results are displayed by the
-`presentAnswer()` function in
-[`QaActivity.java`](lite/examples/bert_qa/android/app/src/main/java/org/tensorflow/lite/examples/bertqa/QaActivity.java).
-
-```java
-private void presentAnswer(Answer answer) {
-        // Highlight answer.
-        Spannable spanText = new SpannableString(content);
-        int offset = content.indexOf(answer.text, 0);
-        if (offset >= 0) {
-            spanText.setSpan(
-                    new BackgroundColorSpan(getColor(R.color.tfe_qa_color_highlight)),
-                    offset,
-                    offset + answer.text.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        }
-        contentTextView.setText(spanText);
-
-        // Use TTS to speak out the answer.
-        if (textToSpeech != null) {
-            textToSpeech.speak(answer.text, TextToSpeech.QUEUE_FLUSH, null, answer.text);
-        }
-    }
-```
+[UIKit screencast]: https://storage.googleapis.com/download.tensorflow.org/models/tflite/screenshots/bertqa_ios_uikit_demo.gif
+[SwiftUI screencast]: https://storage.googleapis.com/download.tensorflow.org/models/tflite/screenshots/bertqa_ios_swiftui_demo.gif
+[BERT]: https://github.com/google-research/bert
+[MobileBERT]:https://tfhub.dev/tensorflow/tfjs-model/mobilebert/1
+[SQuAD]: https://rajpurkar.github.io/SQuAD-explorer/
+[UIKit]: https://developer.apple.com/documentation/uikit
+[SwiftUI]: https://developer.apple.com/documentation/swiftui
+[bert tokenization]: https://github.com/google-research/bert#tokenization
