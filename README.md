@@ -14,7 +14,7 @@ Designing and Recreating new NLP TensorFlow Lite examples. This includes BERT Qu
 
 <img src="https://user-images.githubusercontent.com/67560900/122643946-37d0d380-d130-11eb-8e7c-f467b90cb0dd.mp4" width="300" alt="Video">
 
-[PR Link](https://github.com/tensorflow/examples/pull/327)
+### [PR Link](https://github.com/tensorflow/examples/pull/327)
 Designing and Recreating new NLP TensorFlow Lite examples. This includes BERT Question and Answering, Text classification using the TensorFlow Lite Task Library which will be showcased in [TensorFlow Lite examples](https://www.tensorflow.org/lite/examples). My as a GSoC student was to update the existing Natural Language Processing examples for these 2 tasks to use the [TensorFlow Lite Task Library](https://www.tensorflow.org/lite/inference_with_metadata/task_library/overview) instead of custom code. 
 
 
@@ -24,7 +24,7 @@ Designing and Recreating new NLP TensorFlow Lite examples. This includes BERT Qu
 -----------------------: | -------------------------:
 UIKit version screen cast | SwiftUI version screen cast
 
-[PR Link](https://github.com/tensorflow/examples/pull/340)
+### [PR Link](https://github.com/tensorflow/examples/pull/340)
 
 Designing and Recreating new NLP TensorFlow Lite examples. This includes BERT Question and Answering, Text classification using the TensorFlow Lite Task Library which will be showcased in [TensorFlow Lite examples](https://www.tensorflow.org/lite/examples). My as a GSoC student was to update the existing Natural Language Processing examples for these 2 tasks to use the [TensorFlow Lite Task Library](https://www.tensorflow.org/lite/inference_with_metadata/task_library/overview) instead of custom code. 
 
@@ -35,14 +35,16 @@ Designing and Recreating new NLP TensorFlow Lite examples. This includes BERT Qu
 
 ## Text Classification Android Example Application
 
-<img align="right" src="https://www.tensorflow.org/lite/examples/text_classification/images/screenshot.gif" width="300" alt="Video">
+<img src="https://www.tensorflow.org/lite/examples/text_classification/images/screenshot.gif" width="300" alt="Video">
 
-[PR Link](https://github.com/tensorflow/examples/pull/336)
+### [PR Link](https://github.com/tensorflow/examples/pull/336)
 
 Designing and Recreating new NLP TensorFlow Lite examples. This includes BERT Question and Answering, Text classification using the TensorFlow Lite Task Library which will be showcased in [TensorFlow Lite examples](https://www.tensorflow.org/lite/examples). My as a GSoC student was to update the existing Natural Language Processing examples for these 2 tasks to use the [TensorFlow Lite Task Library](https://www.tensorflow.org/lite/inference_with_metadata/task_library/overview) instead of custom code. 
 
 
 ## TODO
+Text model is not ready yet 
+
 
 ## Other Contributions
 - https://github.com/tensorflow/examples/pull/337
