@@ -45,7 +45,11 @@ Designing and Recreating new NLP TensorFlow Lite examples. This includes BERT Qu
 ## TODO
 
 ## Other Contributions
-
+- https://github.com/tensorflow/examples/pull/337
+- https://github.com/tensorflow/examples/pull/334
+- https://github.com/tensorflow/examples/pull/335
+- https://github.com/tensorflow/examples/pull/329
+- https://github.com/tensorflow/examples/pull/328
 
 
 
