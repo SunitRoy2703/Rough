@@ -23,7 +23,9 @@ Designing and Recreating new NLP TensorFlow Lite examples. This includes BERT Qu
 <img src="https://storage.googleapis.com/download.tensorflow.org/models/tflite/screenshots/bertqa_ios_uikit_demo.gif" width="300" alt="Video"> | <img src="https://storage.googleapis.com/download.tensorflow.org/models/tflite/screenshots/bertqa_ios_uikit_demo.gif" width="300" alt="Video">
 -----------------------: | -------------------------:
 UIKit version screen cast | SwiftUI version screen cast
+
 [PR Link](https://github.com/tensorflow/examples/pull/340)
+
 Designing and Recreating new NLP TensorFlow Lite examples. This includes BERT Question and Answering, Text classification using the TensorFlow Lite Task Library which will be showcased in [TensorFlow Lite examples](https://www.tensorflow.org/lite/examples). My as a GSoC student was to update the existing Natural Language Processing examples for these 2 tasks to use the [TensorFlow Lite Task Library](https://www.tensorflow.org/lite/inference_with_metadata/task_library/overview) instead of custom code. 
 
 <!-- <img align="right" src="https://storage.googleapis.com/download.tensorflow.org/models/tflite/screenshots/bertqa_ios_uikit_demo.gif" width="300" alt="Video">
