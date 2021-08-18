@@ -58,6 +58,7 @@ The TFLite model for BertNLClassifier API is not ready yet, when it's ready it w
 - https://github.com/tensorflow/examples/pull/329
 - https://github.com/tensorflow/examples/pull/328
 
+
  ### 📫 Connect with me
  <img align="center" src="https://raw.githubusercontent.com/ShahriarShafin/ShahriarShafin/main/Assets/handshake.gif" height="32px">
 
