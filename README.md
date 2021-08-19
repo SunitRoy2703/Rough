@@ -5,7 +5,8 @@
 >This serves as my final submission for Google Summer of Code 2021 project.
 
 ### Mentor:
-* Meghna Natraj ([@meghnanatraj](https://github.com/MeghnaNatraj))🌤
+* Meghna Natraj ([@meghnanatraj](https://github.com/MeghnaNatraj))
+🌤
 
 ## Project Overview
 Designing and Recreating new NLP TensorFlow Lite examples. This includes BERT Question and Answering, Text classification using the [TensorFlow Lite Task Library](https://www.tensorflow.org/lite/inference_with_metadata/task_library/overview) which will be showcased in [TensorFlow Lite examples](https://www.tensorflow.org/lite/examples). As a GSoC student, my task was to update the existing Natural Language Processing examples for these 2 tasks to use the TensorFlow Lite Task Library instead of custom code. 
