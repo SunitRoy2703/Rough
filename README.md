@@ -25,7 +25,7 @@ Designing and Recreating new NLP TensorFlow Lite examples. This includes BERT Qu
 
 ## BERT QA IOS Example Application
 
-<img src="https://storage.googleapis.com/download.tensorflow.org/models/tflite/screenshots/bertqa_ios_uikit_demo.gif" width="250" alt="Video"> | <img src="https://storage.googleapis.com/download.tensorflow.org/models/tflite/screenshots/bertqa_ios_uikit_demo.gif" width="250" alt="Video">
+<img src="https://storage.googleapis.com/download.tensorflow.org/models/tflite/screenshots/bertqa_ios_uikit_demo.gif" width="250" alt="Video"> | <img src="https://storage.googleapis.com/download.tensorflow.org/models/tflite/screenshots/bertqa_ios_swiftui_demo.gif" width="250" alt="Video">
 -----------------------: | -------------------------:
 UIKit version screen cast | SwiftUI version screen cast
 
