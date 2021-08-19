@@ -52,6 +52,16 @@ The TFLite model for BertNLClassifier API is not ready yet, when it's ready it w
 
 
 ## Other Contributions
+
+| Description  | PR Link |
+| ------------- | ------------- |
+| Content Cell  | [#328]  |
+| Content Cell  | [#329]  |
+| Content Cell  | [#334]  |
+| Content Cell  | [#335]  |
+| Content Cell  | [#337]  |
+
+
 - https://github.com/tensorflow/examples/pull/337
 - https://github.com/tensorflow/examples/pull/334
 - https://github.com/tensorflow/examples/pull/335
@@ -73,6 +83,10 @@ I want to thank [George Soloupis](https://www.linkedin.com/in/george-soloupis/),
 |--|--|--|--|--|
 
 
-
+[#328]:https://github.com/tensorflow/examples/pull/328
+[#329]:https://github.com/tensorflow/examples/pull/329
+[#334]:https://github.com/tensorflow/examples/pull/334
+[#335]:https://github.com/tensorflow/examples/pull/335
+[#337]:https://github.com/tensorflow/examples/pull/337
 [UIKit screencast]: https://storage.googleapis.com/download.tensorflow.org/models/tflite/screenshots/bertqa_ios_uikit_demo.gif
 [SwiftUI screencast]: https://storage.googleapis.com/download.tensorflow.org/models/tflite/screenshots/bertqa_ios_swiftui_demo.gif
