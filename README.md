@@ -47,7 +47,7 @@ UIKit version screen cast | SwiftUI version screen cast
 - Added & Updated documentation, tests, and code-walkthrough to help onboard new users.  
 
 
-## TODO
+## Next Steps
 The TFLite model for BertNLClassifier API is not ready yet, when it's ready it will be integrated to the Text Classification Android Example, and we may also redesign the app have separate Android library modules of Task API and Interpreter to show both of the implementation.
 
 
