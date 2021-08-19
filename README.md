@@ -55,11 +55,11 @@ The TFLite model for BertNLClassifier API is not ready yet, when it's ready it w
 
 | Description  | PR Link |
 | ------------- | ------------- |
-| Content Cell  | [#328]  |
-| Content Cell  | [#329]  |
-| Content Cell  | [#334]  |
-| Content Cell  | [#335]  |
-| Content Cell  | [#337]  |
+| Resized the super resolution android screenshot  | [#328]  |
+| App screenshot added to Image classification android example | [#329]  |
+| changed readme title of text classification IOS sample  | [#334]  |
+| Added App Screenshot to Object Detection Android example  | [#335]  |
+| Updated Text Classification Android readme with latest links  | [#337]  |
 
 
 - https://github.com/tensorflow/examples/pull/337
