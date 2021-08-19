@@ -5,7 +5,7 @@
 >This serves as my final submission for Google Summer of Code 2021 project.
 
 ### Mentor:
-* Meghna Natraj ([@meghnanatraj](https://github.com/MeghnaNatraj))
+* Meghna Natraj ([@meghnanatraj](https://github.com/MeghnaNatraj))🌤
 
 ## Project Overview
 Designing and Recreating new NLP TensorFlow Lite examples. This includes BERT Question and Answering, Text classification using the [TensorFlow Lite Task Library](https://www.tensorflow.org/lite/inference_with_metadata/task_library/overview) which will be showcased in [TensorFlow Lite examples](https://www.tensorflow.org/lite/examples). As a GSoC student, my task was to update the existing Natural Language Processing examples for these 2 tasks to use the TensorFlow Lite Task Library instead of custom code. 
@@ -16,7 +16,7 @@ Designing and Recreating new NLP TensorFlow Lite examples. This includes BERT Qu
 
 <img src="https://user-images.githubusercontent.com/67560900/122643946-37d0d380-d130-11eb-8e7c-f467b90cb0dd.mp4" width="250" alt="Video">
 
-### PR Link - [#327](https://github.com/tensorflow/examples/pull/327)
+### ⭐️ PR Link - [#327](https://github.com/tensorflow/examples/pull/327)
 - Designed & recreated the App to use the latest TFLite Task Library.
 - Developed separate Android library modules of Task API and Interpreter for BERT Question Android App & redesigned the app to switch between both APIs using Android product flavors(PR).
 - Added documentation, tests, and code-walkthrough to help onboard new users. 
@@ -29,7 +29,7 @@ Designing and Recreating new NLP TensorFlow Lite examples. This includes BERT Qu
 -----------------------: | -------------------------:
 UIKit version screen cast | SwiftUI version screen cast
 
-### PR Link - [#340](https://github.com/tensorflow/examples/pull/340)
+### ⭐️ PR Link - [#340](https://github.com/tensorflow/examples/pull/340)
 
 - Designed & recreated the App to use the latest TFLite Task Library both in SwiftUI & UIKit.
 - Updated the shellscript to download the recommended latest model with metadata.
@@ -40,7 +40,7 @@ UIKit version screen cast | SwiftUI version screen cast
 
 <img src="https://www.tensorflow.org/lite/examples/text_classification/images/screenshot.gif" width="250" alt="Video">
 
-### PR Link - [#336](https://github.com/tensorflow/examples/pull/336)
+### ⭐️ PR Link - [#336](https://github.com/tensorflow/examples/pull/336)
 
 - Recreated the App to use the latest TFLite Task Library & 
 - Designed the App to switch between both NLClassifier and BertNLClassifier API.
