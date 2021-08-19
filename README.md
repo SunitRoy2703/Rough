@@ -62,12 +62,6 @@ The TFLite model for BertNLClassifier API is not ready yet, when it's ready it w
 | 4 | Updated Text Classification Android readme with latest links  | [#337]  |
 
 
-- https://github.com/tensorflow/examples/pull/337
-- https://github.com/tensorflow/examples/pull/334
-- https://github.com/tensorflow/examples/pull/335
-- https://github.com/tensorflow/examples/pull/329
-- https://github.com/tensorflow/examples/pull/328
-
 
 ## Acknowledgements
 
