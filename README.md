@@ -1,5 +1,4 @@
-<img src="https://user-images.githubusercontent.com/67560900/129619954-b783541a-bcd3-43af-b5ef-85bd3ebb2868.png" height="420" width="1000" alt="Video">
-
+<img src="https://user-images.githubusercontent.com/67560900/130139105-4d37e419-bbed-4c1c-8054-c21994877e20.png" alt="Video">
 # Google Summer of Code 2021 [@Tensorflow](https://github.com/tensorflow): Designing and Recreating Tensorflow Lite example NLP apps
 
 >This serves as my final submission for Google Summer of Code 2021 project.
