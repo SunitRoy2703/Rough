@@ -65,7 +65,7 @@ The TFLite model for BertNLClassifier API is not ready yet, when it's ready it w
 
 ## Acknowledgements
 
-I'm thankful to [Meghna Natraj](https://github.com/MeghnaNatraj), [George Soloupis](https://github.com/farmaker47), [Margaret Maynard-Reid](https://github.com/margaretmz),  [Lu Wang](https://github.com/lu-wang-g) [Le Viet Gia Khanh](https://github.com/khanhlvg), [Tian Tian](https://github.com/lintian06) and [TensorFlow Team](https://www.tensorflow.org/).
+My Google Summer of Code Experience was awesome ❤️ and a large part of this great experience was the good mentoring of [Meghna Natraj](https://github.com/MeghnaNatraj), [George Soloupis](https://github.com/farmaker47), [Margaret Maynard-Reid](https://github.com/margaretmz),  [Lu Wang](https://github.com/lu-wang-g) [Le Viet Gia Khanh](https://github.com/khanhlvg), [Tian Tian](https://github.com/lintian06) and [TensorFlow Team](https://www.tensorflow.org/).
 
 
 
