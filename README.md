@@ -48,7 +48,7 @@ UIKit version screen cast | SwiftUI version screen cast
 
 
 ## Next Steps
-The TFLite model for BertNLClassifier API is not ready yet, when it's ready it will be integrated to the Text Classification Android Example, and we may also redesign the app have separate Android library modules of Task API and Interpreter to show both of the implementation.
+The TFLite model for BertNLClassifier API is not available yet (TFLite team is working on it), when it becomes available it will be integrated into the Text Classification Android Example, and we may also redesign the app to have separate Android library modules of Task API and Interpreter to show both of the implementations.
 
 
 ## Other Contributions
@@ -66,6 +66,7 @@ The TFLite model for BertNLClassifier API is not ready yet, when it's ready it w
 ## Acknowledgements
 
 My Google Summer of Code Experience was awesome ❤️ and a large part of this great experience was the good mentoring of [Meghna Natraj](https://github.com/MeghnaNatraj), [George Soloupis](https://github.com/farmaker47), [Margaret Maynard-Reid](https://github.com/margaretmz),  [Lu Wang](https://github.com/lu-wang-g) [Le Viet Gia Khanh](https://github.com/khanhlvg), [Tian Tian](https://github.com/lintian06) and [TensorFlow Team](https://www.tensorflow.org/).
+
 I thank them for their constant guidance, code reviews, timely feedback, help and most importantly, for their dedicated advice and encouragement throughout GSoC. I would definitely love to contribute more in the future to the TensorFlow.
 
 
