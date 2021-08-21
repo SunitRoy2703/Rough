@@ -14,7 +14,7 @@ Designing and Recreating new NLP TensorFlow Lite examples. This includes BERT Qu
 ## BERT QA Android Example Application
 
 
-<img src="https://user-images.githubusercontent.com/67560900/122643946-37d0d380-d130-11eb-8e7c-f467b90cb0dd.mp4" width="250" alt="Video">
+<img src="https://user-images.githubusercontent.com/67560900/130329896-ebbe26b1-6e4f-4b13-8ca3-06267f66c15a.gif" width="250" alt="Video">
 
 ### ⭐️ PR Link - [#327](https://github.com/tensorflow/examples/pull/327)
 - Designed & recreated the App to use the latest TFLite Task Library.
