@@ -65,7 +65,7 @@ The TFLite model for BertNLClassifier API is not available yet (TFLite team is w
 
 ## Acknowledgements
 
-My Google Summer of Code Experience was awesome ❤️ and a large part of this great experience was the good mentoring of [Meghna Natraj](https://github.com/MeghnaNatraj), [George Soloupis](https://github.com/farmaker47), [Margaret Maynard-Reid](https://github.com/margaretmz),  [Lu Wang](https://github.com/lu-wang-g) [Le Viet Gia Khanh](https://github.com/khanhlvg), [Tian Tian](https://github.com/lintian06) and [TensorFlow Team](https://www.tensorflow.org/).
+My Google Summer of Code Experience was awesome ❤️ and a large part of this great experience was the good mentoring of [Meghna Natraj](https://github.com/MeghnaNatraj), [George Soloupis](https://github.com/farmaker47), [Margaret Maynard-Reid](https://github.com/margaretmz),  [Lu Wang](https://github.com/lu-wang-g), [Le Viet Gia Khanh](https://github.com/khanhlvg), [Tian Tian](https://github.com/lintian06) and [TensorFlow Team](https://www.tensorflow.org/).
 
 I thank them for their constant guidance, code reviews, timely feedback, help and most importantly, for their dedicated advice and encouragement throughout GSoC. I would definitely love to contribute more in the future to the TensorFlow.
 
