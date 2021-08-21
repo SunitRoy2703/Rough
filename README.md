@@ -51,7 +51,9 @@ UIKit version screen cast | SwiftUI version screen cast
 The TFLite model for BertNLClassifier API is not available yet (TFLite team is working on it), when it becomes available it will be integrated into the Text Classification Android Example, and we may also redesign the app to have separate Android library modules of Task API and Interpreter to show both of the implementations.
 
 
-## Other Contributions
+## Community Contributions
+
+These are the contributions I made, which are not related to my project:
 
 | No. | Description  | PR Link |
 | ------------- | ------------- | ------------- |
