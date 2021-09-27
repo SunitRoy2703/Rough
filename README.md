@@ -1,169 +1,75 @@
-# TensorFlow Lite BERT QA Android example
+<p>
+ <img align="left" src="https://user-images.githubusercontent.com/67560900/107698101-10797e00-6cda-11eb-8357-b7808d66151a.gif" width="310px" alt="hellogif">
+</p>
+<h1 align="center"> <img src="https://raw.githubusercontent.com/ShahriarShafin/ShahriarShafin/main/Assets/hi.gif" width="40px"/>  I'm <a href="https://sunitroy2703.github.io/" target="_blank">Sunit Roy</a>. Nice to see you.🤗 </h1> 
 
-This document walks through the code of a simple Android mobile application that
-demonstrates
-[BERT Question and Answer](https://www.tensorflow.org/lite/examples/bert_qa/overview).
-
-## Explore the code
-
-The app is written entirely in Java and uses the TensorFlow Lite
-[Java library](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/lite/java)
-for performing BERT Question and Answer.
-
-We're now going to walk through the most important parts of the sample code.
-
-### Get the question and the context of the question
-
-This mobile application gets the question and the context of the question using the functions defined in the
-file
-[`QaActivity.java`](https://github.com/tensorflow/examples/blob/master/lite/examples/bert_qa/android/app/src/main/java/org/tensorflow/lite/examples/bertqa/ui/QaActivity.java).
+ # I'm From Kolkata, India.
+ 
+- ### Student of Electronics & Tele-Communications, <a href="https://en.wikipedia.org/wiki/Engineering_Institute_For_Junior_Executives" target="_blank">Engineering Institute For Junior Executives</a>.
+- ### Currently I'm contributing to Google's Open Source Machine Learning Platform [Tensorflow](https://www.tensorflow.org).
+- ### Earlier I was Junior Software Developer at a start-up called Wholesome Company. 
+- ### I have developed mobile apps using various SDKs like Android, Flutter, ARcore, MLkit.
+- ### I have published some of the apps in the play store you can find them here: https://play.google.com/store/apps/developer?id=Sunit+Roy
+- ### I teach Android development on my youtube channel: https://bit.ly/SunitRoyYT
+- ### I solved your Android problems here: https://discord.gg/jqXQ4Efn63
+- ### You can also read my blogs here: https://sunitroy.medium.com/
 
 
-### Answerer
 
-This BERT QA Android reference app demonstrates two implementation
-solutions,
-[`lib_task_api`](https://github.com/SunitRoy2703/examples/tree/bertQa-android-task-lib/lite/examples/bert_qa/android/lib_task_api)
-that leverages the out-of-box API from the
-[TensorFlow Lite Task Library](https://www.tensorflow.org/lite/inference_with_metadata/task_library/bert_question_answerer),
-and
-[`lib_interpreter`](https://github.com/SunitRoy2703/examples/tree/bertQa-android-task-lib/lite/examples/bert_qa/android/lib_interpreter)
-that creates the custom inference pipleline using the
-[TensorFlow Lite Interpreter Java API](https://www.tensorflow.org/lite/guide/inference#load_and_run_a_model_in_java).
-
-Both solutions implement the file `QaClient.java` (see
-[the one in lib_task_api](https://github.com/SunitRoy2703/examples/blob/bertQa-android-task-lib/lite/examples/bert_qa/android/lib_task_api/src/main/java/org/tensorflow/lite/examples/bertqa/ml/QaClient.java)
-and
-[the one in lib_interpreter](https://github.com/SunitRoy2703/examples/blob/bertQa-android-task-lib/lite/examples/bert_qa/android/lib_interpreter/src/main/java/org/tensorflow/lite/examples/bertqa/ml/QaClient.java)
-that contains most of the complex logic for processing the text input and
-running inference.
-
-#### Using the TensorFlow Lite Task Library
-
-Inference can be done using just a few lines of code with the
-[`BertQuestionAnswerer`](https://www.tensorflow.org/lite/inference_with_metadata/task_library/bert_question_answerer)
-in the TensorFlow Lite Task Library.
-
-##### Load model and create BertQuestionAnswerer
-
-`BertQuestionAnswerer` expects a model populated with the
-[model metadata](https://www.tensorflow.org/lite/convert/metadata) and the label
-file. See the
-[model compatibility requirements](https://www.tensorflow.org/lite/inference_with_metadata/task_library/bert_question_answerer#model_compatibility_requirements)
-for more details.
+<p>
+ <img align="left"  src="https://user-images.githubusercontent.com/67560900/107701724-4d943f00-6cdf-11eb-8b74-0c16b173d255.gif" width="310px" alt="androidgif">
+</p>
 
 
-```java
-/**
- * Load TFLite model and create BertQuestionAnswerer instance.
- */
- public void loadModel() {
-     try {
-         answerer = BertQuestionAnswerer.createFromFile(context, MODEL_PATH);
-     } catch (IOException e) {
-         Log.e(TAG, e.getMessage());
-     }
- }
-```
+<p>
+ <img align="center" src="https://user-images.githubusercontent.com/67560900/107698382-77973280-6cda-11eb-9d30-5735f2becfdc.gif" width="310px alt="workgif">
+</p>
 
-`BertQuestionAnswerer` currently does not support configuring delegates and
-multithread, but those are on our roadmap. Please stay tuned!
 
-##### Run inference
 
-The following code runs inference using `BertQuestionAnswerer` and predicts the possible answers
+ ### Languages and Tools:
+ 
+<p align="center">
+<a href="https://developer.android.com"><img src="https://user-images.githubusercontent.com/67560900/107708789-1bd4a580-6cea-11eb-8299-6787dd5dc2d1.png" width="70"></a>
+ <a href="https://java.com/en/"> <img src="https://user-images.githubusercontent.com/67560900/107707714-53425280-6ce8-11eb-81e8-d0c3e2eb51f2.png" width="70"></a>
+   <a href="https://kotlinlang.org/"><img src="https://user-images.githubusercontent.com/67560900/107707894-9d2b3880-6ce8-11eb-8dda-9f7332696242.png" width="70"></a>
+     <a href="https://developer.android.com/studio"><img src="https://user-images.githubusercontent.com/67560900/107708529-a4067b00-6ce9-11eb-8d70-e780676f0dc0.png" width="70"></a>
+  <a href="https://flutter.dev"><img src="https://www.vectorlogo.zone/logos/flutterio/flutterio-icon.svg" width="70"></a>
+  <a href="https://firebase.google.com/"><img src="https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" width="70"></a>
+ <a href="https://git-scm.com/"><img src="https://raw.githubusercontent.com/ShahriarShafin/ShahriarShafin/main/Assets/git.gif" width="130"></a>
+  <a href="https://dart.dev/"><img src="https://user-images.githubusercontent.com/67560900/107708188-16c32680-6ce9-11eb-99b5-5125dec9ffed.png" width="70"></a>
+ <a href="https://developers.google.com/ml-kit"><img src="https://user-images.githubusercontent.com/67560900/107749425-94665100-6d40-11eb-9ed0-e1f2cfbf76b6.png" width="70"></a>
+  <a href="https://developers.google.com/ar"><img src="https://user-images.githubusercontent.com/67560900/107708172-0f038200-6ce9-11eb-823a-69bfee591629.png" width="70"></a>
+  <a href="https://code.visualstudio.com/"><img src="https://raw.githubusercontent.com/ShahriarShafin/ShahriarShafin/main/Assets/vscode.webp" width="70"></a>
+</p>
 
-```java
- /**
-  * Run inference and predict the possible answers.
-  */
-      List<QaAnswer> apiResult = answerer.answer(contextOfTheQuestion, questionToAsk);
-     
-```
+ ### 📫 Connect with me
+ <img align="center" src="https://raw.githubusercontent.com/ShahriarShafin/ShahriarShafin/main/Assets/handshake.gif" height="32px">
 
-The output of `BertQuestionAnswerer` is a list of [`QaAnswer`](https://github.com/tensorflow/tflite-support/blob/master/tensorflow_lite_support/java/src/java/org/tensorflow/lite/task/text/qa/QaAnswer.java) instance, where
-each `QaAnswer` element is a single head classification result. All the
-demo models are single head models, therefore, `results` only contains one
-`QaAnswer` object.
+ 
+<a href="mailto:iamsunitroy03@gmail.com"><img src="https://image.flaticon.com/icons/svg/281/281769.svg" width="40"></a>|<a href="https://www.linkedin.com/in/sunit-roy/"><img src="https://cdn2.iconfinder.com/data/icons/social-media-2285/512/1_Linkedin_unofficial_colored_svg-128.png" width="40"></a>|<a href="https://twitter.com/HeySunit"><img src="https://cdn2.iconfinder.com/data/icons/social-media-2285/512/1_Twitter3_colored_svg-128.png" width="40"></a>|<a href="https://sunitroy.medium.com/"><img src="https://user-images.githubusercontent.com/67560900/109533536-57d87a80-7ae0-11eb-8602-d312a0cb0b0e.png" width="45"></a>|<a href="https://bit.ly/SunitRoyYT"><img src="https://user-images.githubusercontent.com/67560900/124399599-ef253700-dd39-11eb-8b81-68807fdc3541.png" width="45"></a>|
+|--|--|--|--|--|
 
-To match the implementation of
-[`lib_interpreter`](https://github.com/SunitRoy2703/examples/tree/bertQa-android-task-lib/lite/examples/bert_qa/android/lib_interpreter),
-`results` is converted into List<[`Answer`](https://github.com/SunitRoy2703/examples/blob/bertQa-android-task-lib/lite/examples/bert_qa/android/lib_task_api/src/main/java/org/tensorflow/lite/examples/bertqa/ml/Answer.java)>.
+ ### 📚 Most Used Languages
+  <img align="center" alt="codeSTACKr's GitHub Stats" src="https://github-readme-stats.vercel.app/api/top-langs/?username=SunitRoy2703&layout=compact" />
 
-#### Using the TensorFlow Lite Interpreter
+--- 
 
-##### Load model and create interpreter
+<p align="left">
+   <i> 
+    
+    
+    “Have the courage to follow your heart and intuition. They 
+       somehow already know what you truly want to become.
+          Everything else is secondary.”
+         
+   ― Steve Jobs
+  </i>
+</p>       
 
-To perform inference, we need to load a model file and instantiate an
-`Interpreter`. This happens in the `loadModel` method of the `QaClient` class. Information about number of threads is used to configure the `Interpreter` via the
-`Interpreter.Options` instance passed into its constructor.
+---
 
-```java
-Interpreter.Options opt = new Interpreter.Options();
-      opt.setNumThreads(NUM_LITE_THREADS);
-      tflite = new Interpreter(buffer, opt);
-...
-```
-
-##### Pre-process query & content
-
-Next in the `predict` method of the `QaClient` class, we take the input of query & content,
-convert it to a `Feature` format for efficient processing and pre-process
-it. The steps are shown in the public 'FeatureConverter.convert()' method:
-
-```java
-
-public Feature convert(String query, String context) {
-    List<String> queryTokens = tokenizer.tokenize(query);
-    if (queryTokens.size() > maxQueryLen) {
-      queryTokens = queryTokens.subList(0, maxQueryLen);
-    }
-
-    List<String> origTokens = Arrays.asList(context.trim().split("\\s+"));
-    List<Integer> tokenToOrigIndex = new ArrayList<>();
-    List<String> allDocTokens = new ArrayList<>();
-    for (int i = 0; i < origTokens.size(); i++) {
-      String token = origTokens.get(i);
-      List<String> subTokens = tokenizer.tokenize(token);
-      for (String subToken : subTokens) {
-        tokenToOrigIndex.add(i);
-        allDocTokens.add(subToken);
-      }
-    }
-
-```
-
-##### Run inference
-
-Inference is performed using the following in `QaClient` class:
-
-```java
-tflite.runForMultipleInputsOutputs(inputs, output);
-```
-
-### Display results
-
-The QaClient is invoked and inference results are displayed by the
-`presentAnswer()` function in
-[`QaActivity.java`](lite/examples/bert_qa/android/app/src/main/java/org/tensorflow/lite/examples/bertqa/QaActivity.java).
-
-```java
-private void presentAnswer(Answer answer) {
-        // Highlight answer.
-        Spannable spanText = new SpannableString(content);
-        int offset = content.indexOf(answer.text, 0);
-        if (offset >= 0) {
-            spanText.setSpan(
-                    new BackgroundColorSpan(getColor(R.color.tfe_qa_color_highlight)),
-                    offset,
-                    offset + answer.text.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        }
-        contentTextView.setText(spanText);
-
-        // Use TTS to speak out the answer.
-        if (textToSpeech != null) {
-            textToSpeech.speak(answer.text, TextToSpeech.QUEUE_FLUSH, null, answer.text);
-        }
-    }
-```
+<p align="center"> <img src="https://gpvc.arturio.dev/SunitRoy2703" alt="devded" /> </p>
+                                      
+## Unmute & Listen to my favourite song! 🎧
+https://user-images.githubusercontent.com/67560900/131628711-9d67d249-77bf-4d4c-8171-9f68d85434f9.mp4
